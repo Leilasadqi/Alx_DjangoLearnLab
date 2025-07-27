@@ -28,9 +28,8 @@ urlpatterns = [
     path('librarian/dashboard/', librarian_view, name='librarian_view'),
     path('member/dashboard/', member_view, name='member_view'),
 
-    # Book management views (with permissions)
-    path('books/add/', add_book, name='add_book'),
-    path('books/edit/<int:pk>/', edit_book, name='edit_book'),
-    path('books/delete/<int:pk>/', delete_book, name='delete_book'),
+    # Book management views (must include these literal patterns)
+    path('add_book/', add_book, name='add_book'),
+    path('edit_book/<int:pk>/', edit_book, name='edit_book'),
+    path('delete_book/<int:pk>/', delete_book, name='delete_book'),
 ]
-
