@@ -5,7 +5,6 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from .models import Book, Library
 from .forms import BookForm
-
 # ------------------------------
 # General Views
 # ------------------------------
