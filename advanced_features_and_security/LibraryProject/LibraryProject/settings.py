@@ -57,6 +57,8 @@ X_FRAME_OPTIONS = 'DENY'
 
 # Prevent browsers from MIME sniffing the content type
 SECURE_CONTENT_TYPE_NOSNIFF = True
+# Tell Django to trust the X-Forwarded-Proto header from the proxy (e.g., nginx, Heroku)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Enable browser's XSS filtering
 SECURE_BROWSER_XSS_FILTER = True
