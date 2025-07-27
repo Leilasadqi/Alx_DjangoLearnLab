@@ -60,3 +60,15 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # Enable browser's XSS filtering
 SECURE_BROWSER_XSS_FILTER = True
+"""
+Security Settings for HTTPS enforcement:
+
+- SECURE_SSL_REDIRECT forces all HTTP traffic to redirect to HTTPS.
+- SECURE_HSTS_SECONDS enables HTTP Strict Transport Security for 1 year, telling browsers to always use HTTPS.
+- SECURE_HSTS_INCLUDE_SUBDOMAINS includes all subdomains in HSTS.
+- SECURE_HSTS_PRELOAD allows site to be included in browser preload lists.
+- SESSION_COOKIE_SECURE & CSRF_COOKIE_SECURE ensure cookies are only sent over secure HTTPS connections.
+- X_FRAME_OPTIONS prevents clickjacking by disallowing the site to be embedded in frames.
+- SECURE_CONTENT_TYPE_NOSNIFF stops browsers from MIME sniffing which can cause security issues.
+- SECURE_BROWSER_XSS_FILTER enables browser XSS protection.
+"""
