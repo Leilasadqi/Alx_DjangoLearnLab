@@ -23,3 +23,19 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance, role='Member')
     else:
         instance.userprofile.save()
+class Book(models.Model):
+    # Your existing fields, e.g.:
+    title = models.CharField(max_length=255)
+    author = models.ForeignKey('Author', on_delete=models.CASCADE)
+    publication_year = models.IntegerField()
+    library = models.ForeignKey('Library', related_name='books', on_delete=models.CASCADE)
+
+    class Meta:
+        permissions = [
+            ('can_add_book', 'Can add book'),
+            ('can_change_book', 'Can change book'),
+            ('can_delete_book', 'Can delete book'),
+        ]
+
+    def __str__(self):
+        return self.title
