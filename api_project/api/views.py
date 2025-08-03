@@ -9,3 +9,11 @@ class BookList(generics.ListAPIView):
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+from rest_framework import permissions
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+    # Require authentication to access this viewset
+    permission_classes = [permissions.IsAuthenticated]
