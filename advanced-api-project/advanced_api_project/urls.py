@@ -1,3 +1,11 @@
+from django.contrib import admin
+from django.urls import path, include  # include is required here
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),  # Includes the URLs from your 'api' app
+]
+
 """
 URL configuration for advanced_api_project project.
 
