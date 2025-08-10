@@ -1,9 +1,9 @@
-
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, generics, permissions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from rest_framework import generics, permissions
 from .models import Book
 from .serializers import BookSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
 
 class BookListView(generics.ListAPIView):
     """
@@ -19,14 +19,13 @@ class BookListView(generics.ListAPIView):
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
 
-    # Fields you can filter by using ?title= or ?publication_year=
     filterset_fields = ['title', 'publication_year', 'author']
 
-    # Fields you can search by using ?search=keyword (search in title and author__name)
     search_fields = ['title', 'author__name']
 
-    # Fields you can order by using ?ordering=title or ?ordering=-publication_year
     ordering_fields = ['title', 'publication_year']
+
+
 # --------------------------
 # BOOK GENERIC VIEWS
 # --------------------------
@@ -61,13 +60,11 @@ class BookCreateView(generics.CreateAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Only logged-in users
+    permission_classes = [permissions.IsAuthenticated]
 
     # Optional: Automatically associate a default author if not provided
     def perform_create(self, serializer):
-        # Example: automatically set a default author if missing
-        # serializer.save(author=Author.objects.first())
-        serializer.save()  # Normal save, you can customize as needed
+        serializer.save()
 
 
 # Update an existing book (authenticated users only)
