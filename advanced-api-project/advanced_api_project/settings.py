@@ -18,6 +18,9 @@ INSTALLED_APPS = [
     'django_filters',
     'api',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 """
 Django settings for advanced_api_project project.
