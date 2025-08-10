@@ -1,3 +1,11 @@
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/', include('api.urls')),  # This line includes api/urls.py
+]
+
 from django.urls import path
 from .views import (
     BookListView,
