@@ -9,7 +9,7 @@ class BookListView(generics.ListAPIView):
     """
     List all books with filtering, searching, and ordering.
 
-    Filtering: Filter by 'title', 'author' (by author id), and 'publication_year'.
+    Filtering: Filter by 'title', 'author', and 'publication_year'.
     Searching: Search by 'title' and author's 'name'.
     Ordering: Order by 'title' and 'publication_year'.
     """
@@ -18,11 +18,8 @@ class BookListView(generics.ListAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-
-    filterset_fields = ['title', 'publication_year', 'author']
-
+    filterset_fields = ['title', 'author', 'publication_year']
     search_fields = ['title', 'author__name']
-
     ordering_fields = ['title', 'publication_year']
 
 
