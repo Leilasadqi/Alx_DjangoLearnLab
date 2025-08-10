@@ -12,6 +12,12 @@ INSTALLED_APPS = [
     # Local apps
     'api',
 ]
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+    'django_filters',
+    'api',
+]
 
 """
 Django settings for advanced_api_project project.
