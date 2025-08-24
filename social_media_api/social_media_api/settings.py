@@ -1,15 +1,18 @@
 """
-Django settings for social_media_api project.
+Django settings for social_media_api project (production-ready).
 """
 
 from pathlib import Path
 import os
+import dj_database_url
 
+# Base directory
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-change-this-key'
-DEBUG = True
-ALLOWED_HOSTS = []
+# SECURITY
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'change-this-key-for-prod')
+DEBUG = False
+ALLOWED_HOSTS = ['yourdomain.com', 'yourapp.herokuapp.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -23,15 +26,17 @@ INSTALLED_APPS = [
     # Third-party
     'rest_framework',
     'rest_framework.authtoken',
-    'django_filters',   # for filtering support
+    'django_filters',
 
     # Local apps
     'accounts',
     'posts',
+    'notifications',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # For serving static files
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -60,12 +65,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'social_media_api.wsgi.application'
 
-# Database
+# Database: PostgreSQL for production
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
 }
 
 # Password validation
@@ -83,10 +87,14 @@ USE_I18N = True
 USE_TZ = True
 
 # Static & Media files
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom user model
@@ -108,3 +116,11 @@ REST_FRAMEWORK = {
         'rest_framework.filters.OrderingFilter',
     ],
 }
+
+# Security settings
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
